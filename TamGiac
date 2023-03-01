@@ -1,0 +1,77 @@
+#include<stdio.h>
+#include<math.h>
+#include<conio.h>
+
+struct Diem{
+	float x,y;
+};
+
+typedef struct Diem D;
+void nhapDiem(D &);
+
+void nhapDiem(D &d){
+	printf("\nnhap diem x0 : ");
+	scanf("%f",&d.x);
+	printf("nhap diem y0 : ");
+	scanf("%f",&d.y);
+}
+
+struct TamGiac{
+	D A,B,C;
+};
+
+typedef struct TamGiac TG;
+void nhapToaDo(TG &);
+float tinhDienTich(TG);
+float tinhChuVi(TG);
+D toaDoTrongTam(TG);
+void inKetQua(TG);
+
+void nhapToaDo(TG &tg){
+	printf("nhap toa do diem A ");
+	nhapDiem(tg.A);
+	printf("nhap toa do diem B");
+	nhapDiem(tg.B);
+	printf("nhap toa do diem C");
+	nhapDiem(tg.C);
+}
+
+float tinhChuVi(TG tg ){
+	float a=sqrt(pow((tg.B.x-tg.A.x),2)+pow((tg.B.y-tg.A.y),2));
+	float b=sqrt(pow((tg.C.x-tg.B.x),2)+pow((tg.C.y-tg.B.y),2));
+	float c=sqrt(pow((tg.A.x-tg.C.x),2)+pow((tg.A.y-tg.C.y),2));
+	return (a+b+c);
+}
+
+float tinhDienTich(TG tg){
+	float a=sqrt(pow((tg.B.x-tg.A.x),2)+pow((tg.B.y-tg.A.y),2));
+	float b=sqrt(pow((tg.C.x-tg.B.x),2)+pow((tg.C.y-tg.B.y),2));
+	float c=sqrt(pow((tg.A.x-tg.C.x),2)+pow((tg.A.y-tg.C.y),2));
+	float p= tinhChuVi(tg);
+	
+	return(sqrt((p*(p-a))*(p*(p-c))*(p*(p-b))));
+}
+
+D toaDoTrongTam(TG tg){
+	D G;
+	G.x=(tg.A.x + tg.B.x + tg.C.x)/3;
+	G.y=(tg.A.y + tg.B.y + tg.C.y)/3;
+	return G;
+}
+
+void inKetQua(TG tg){
+	printf("\nToa Do dinh A(%.2f,%.2f)",tg.A.x,tg.A.y);
+	printf("\nToa Do dinh B(%.2f,%.2f)",tg.B.x,tg.B.y);
+	printf("\nToa Do dinh C(%.2f,%.2f)",tg.C.x,tg.C.y);
+	printf("\nchu vi hinh tam giac = %.2f",tinhChuVi(tg));
+	printf("\ndien tich hinh tam giac = %.2f",tinhDienTich(tg));
+	printf("\nToa do trong tam cua tam giac G(%.2f,%.2f)",toaDoTrongTam(tg));
+}
+
+int main(){
+	TG tg;
+	nhapToaDo(tg);
+	inKetQua(tg);
+	getch();
+	return 0;
+}
