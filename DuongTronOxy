@@ -6,7 +6,7 @@ struct Diem{
 	float x,y;
 };
 
-typedef Diem D;
+typedef struct Diem D;
 void nhapDiem(D &);
 
 void nhapDiem(D &d){
@@ -21,7 +21,7 @@ struct DuongTron{
 	float r;
 };
 
-typedef DuongTron DT;
+typedef struct DuongTron DT;
 
 void nhapToaDo(DT &);
 void nhapBanKinh(DT &);
