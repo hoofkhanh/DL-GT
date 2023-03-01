@@ -1,36 +1,64 @@
 #include<stdio.h>
 #include<conio.h>
+#include<math.h>
 
-struct DuongTron{
-	float x,y,r;
+struct Diem{
+	float x,y;
 };
 
-typedef struct DuongTron DT;
+typedef Diem D;
+void nhapDiem(D &);
 
-void nhapDuongTron(DT &);
-void xuatDuongTron(DT);
-
-void nhapDuongTron(DT &dt){
-	printf("nhap diem x ");
-	scanf("%f",&dt.x);
-	printf("nhap diem y ");
-	scanf("%f",&dt.y);
-	do{
-		printf("nhap ban kinh r ");
-		scanf("%f",&dt.r);
-		if(dt.r<=0)
-			printf("\mnhap ban kinh r >0\m");
-	}while(dt.r <=0);
+void nhapDiem(D &d){
+	printf("\nnhap diem x0 : ");
+	scanf("%f",&d.x);
+	printf("nhap diem y0 : ");
+	scanf("%f",&d.y);
 }
 
-void xuatDuongTron(DT dt){
-	printf("(I (%.2f,%.2f)%.2f)",dt.x,dt.y,dt.r);
+struct DuongTron{
+	D I;
+	float r;
+};
+
+typedef DuongTron DT;
+
+void nhapToaDo(DT &);
+void nhapBanKinh(DT &);
+
+float tinhChuVi(DT);
+float tinhDienTich(DT);
+
+void inKetQua(DT);
+
+void nhapToaDo(DT &dt){
+	printf("nhap toa do tam I ");
+	nhapDiem(dt.I);
+}
+
+void nhapBanKinh(DT &dt){
+	printf("nhap ban kinh r : ");
+	scanf("%f",&dt.r);
+}
+
+float tinhDienTich(DT dt){
+	return(3.14*dt.r*dt.r );
+}
+
+float tinhChuVi(DT dt){
+	return (2*3.14*dt.r);
+}
+
+void inKetQua(DT dt){
+	printf("\nI(%.2f,%.2f)",dt.I.x,dt.I.x);
+	printf("\nban kinh r = %.2f",dt.r);
+	printf("\nchu vi hinh tron = %.2f",tinhChuVi(dt));
+	printf("\ndien tich hinh tron =%.2f",tinhDienTich(dt));
 }
 
 int main(){
-	DT dt;
-	nhapDuongTron(dt);
-	xuatDuongTron(dt);
-	getch();
-	return 0;
+	DT a;
+	nhapToaDo(a);
+	nhapBanKinh(a);
+	inKetQua(a);
 }
