@@ -65,7 +65,8 @@ void inKetQua(TG tg){
 	printf("\nToa Do dinh C(%.2f,%.2f)",tg.C.x,tg.C.y);
 	printf("\nchu vi hinh tam giac = %.2f",tinhChuVi(tg));
 	printf("\ndien tich hinh tam giac = %.2f",tinhDienTich(tg));
-	printf("\nToa do trong tam cua tam giac G(%.2f,%.2f)",toaDoTrongTam(tg));
+	D G=toaDoTrongTam(tg);
+	printf("\nToa do trong tam cua tam giac G(%.2f,%.2f)",G.x,G.y) ;
 }
 
 int main(){
