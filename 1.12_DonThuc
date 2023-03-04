@@ -1,0 +1,123 @@
+#include<stdio.h>
+#include<math.h>
+
+struct DonThuc{
+	float a;
+	int n;
+};
+
+typedef struct DonThuc DT;
+void nhap(DT &);
+void xuat(DT);
+
+DT tinhtichDonThuc(DT,DT);
+DT daoHamCap1(DT);
+DT tinhThuong2DonThuc(DT ,DT);
+DT tinhDaoHamCapKDonThuc(DT);
+float tinhGiaTriDonThuc(DT);
+DT operator *(DT ,DT);
+DT operator /(DT,DT);
+
+void nhap(DT &dt){
+	printf("\nnhap a");
+	scanf("%f",&dt.a);
+	printf("nhap n");
+	scanf("%d",&dt.n);
+}
+
+void xuat(DT dt){
+	printf("%.2fx^%d\n",dt.a,dt.n);
+}
+
+DT tinhtichDonThuc(DT dt,DT dt1){
+	DT dt2;
+	dt2.a=dt.a*dt1.a;
+	dt2.n=dt.n+dt1.n;
+	return dt2;
+}
+
+DT daoHamCap1(DT dt){
+	DT dt1;
+	dt1.a =dt.a * dt.n;
+	dt1.n=dt.n-1;
+	return dt1;
+}
+
+DT tinhThuong2DonThuc(DT dt1,DT dt2){
+	DT dt;
+	dt.a=dt1.a/dt2.a;
+	dt.n=dt1.n-dt2.n;
+	return dt;
+}
+
+DT tinhDaoHamCapKDonThuc(DT dt){
+	int k;
+	printf("\nnhap so cap k ma ban muon dao ham : ");
+	scanf("%d",&k);
+	while(k!=0){
+		dt=daoHamCap1(dt);
+		k=k-1;
+	}
+	
+	return dt;
+}
+
+float tinhGiaTriDonThuc(DT dt){
+	float x;
+	printf("nhap gia tri x0 = ");
+	scanf("%f",&x);
+	return dt.a *pow(x,dt.n);
+}
+
+DT operator *(DT dt,DT dt1){
+	dt.a=dt.a*dt1.a;
+	dt.n=dt.n+dt1.n;
+	return dt;
+}
+
+DT operator /(DT dt,DT dt1){
+	dt.a=dt.a/dt1.a;
+	dt.n=dt.n-dt1.n;
+	return dt;
+}
+
+int main(){
+	DT d;
+	nhap(d);
+	xuat(d);
+	
+	DT d1;
+	nhap(d1);
+	xuat(d1);
+	
+	DT ketqua=	tinhtichDonThuc(d,d1);
+	printf("\ntich 2 don thuc %.2fx^%d *  %.2fx^%d = ",d.a,d.n,d1.a,d1.n);
+	xuat(ketqua);
+	
+	DT ketqua1;
+	ketqua1=daoHamCap1(d1);
+	printf("\nDao ham cap 1 %.2fx^%d = ",d1.a,d1.n);
+	xuat(ketqua1);
+	
+	DT dt4=tinhThuong2DonThuc(d,d1);
+	printf("\nthuong hai don thuc %.2fx^%d /  %.2fx^%d = ",d.a,d.n,d1.a,d1.n);
+	xuat(dt4);
+	
+	DT dt5;
+	dt5=tinhDaoHamCapKDonThuc(d1);
+	printf("\nDao ham cap k cua %.2fx^%d = ",d1.a,d1.n);
+	xuat(dt5);
+	printf("\n");
+	
+	DT dt6;
+	printf	("gia tri cua don thuc %.2fx^%d = %.2f\n",d1.a,d1.n,tinhGiaTriDonThuc(d1));
+	
+	DT c=d*d1;
+	printf("\nket qua tich cua hai don thuc %.2fx^%d * %.2fx^%d = %.2fx^%d\n",d.a,d.n,d1.a,d1.n,c.a,c.n);
+	
+	DT d7=d/d1;
+	printf("\nket qua thuong cua hai don thuc %.2fx^%d / %.2fx^%d = ",d.a,d.n,d1.a,d1.n);
+	xuat(d7);
+  
+  return 0;
+}
