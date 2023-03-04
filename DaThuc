@@ -2,7 +2,8 @@
 #include<conio.h>
 
 struct DaThuc{
-	float a,n;
+	int n;
+	float a[100];
 };
 
 typedef struct DaThuc DATHUC;
@@ -11,18 +12,19 @@ void nhapDaThuc(DATHUC &);
 void xuatDaThuc(DATHUC );
 
 void nhapDaThuc(DATHUC &dt){
-	printf("nhap a = ");
-	scanf("%f",&dt.a);
+
 	printf("nhap n = ");
-	scanf("%f",&dt.n);
+	scanf("%d",&dt.n);
+	for(int i=dt.n;i>=0;i--){
+		printf("nhap he so a : ");
+		scanf("%f",&dt.a[i]);
+	}
 }
 
 void xuatDaThuc(DATHUC dt){
-	float tong=0;
 	printf("P(x) = ");
-	for(int i=0;i<=dt.n;i++){
-		printf("%.2f.%.2f.X^%.2f  +  ",dt.a,(dt.n-i),(dt.n-i));
-
+	for(int i=dt.n;i>=0;i--){
+		printf("%.2f.%d.X^%d + ",dt.a[i],i,i);
 	}
 }
 
