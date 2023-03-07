@@ -1,0 +1,194 @@
+#include<stdio.h>
+#include<math.h>
+#include<conio.h>
+
+struct DaThuc{
+	float a[100];
+	int n;
+};
+typedef struct DaThuc DATHUC;
+
+void nhap(DATHUC &);
+void xuat(DATHUC );
+
+DATHUC tinhTongHaiDaThuc(DATHUC,DATHUC);
+DATHUC tinhHieuHaiDaThuc(DATHUC,DATHUC);
+DATHUC tinhTichHaiDaThuc(DATHUC,DATHUC);
+DATHUC tinhHieuHaiDaThuc(DATHUC,DATHUC );
+DATHUC tinhDaoHamCapMot(DATHUC);
+DATHUC tinhDaoHamKCap(DATHUC);
+DATHUC tinhGiaTriDaThuc(DATHUC);
+DATHUC operator+ (DATHUC ,DATHUC);
+DATHUC operator- (DATHUC,DATHUC );
+DATHUC operator* (DATHUC,DATHUC);
+
+void nhap(DATHUC &dt){
+	do{
+		printf("\nnhap so mu n >0 ");
+		scanf("%d",&dt.n);
+	}while(dt.n <=0);
+	for(int i=dt.n;i>=0;i--){
+		printf("nhap he so a%d ",i);
+		scanf("%f",&dt.a[i]);
+	}
+}
+
+void xuat(DATHUC dt){
+	printf("S(n)= ");
+	for(int i=dt.n;i>=0;i--){
+		if(i==0){
+				printf("%.2fx^%d  ",dt.a[i],i);
+		}else{
+				printf("%.2fx^%d + ",dt.a[i],i);
+		}
+	}
+}
+
+DATHUC tinhTongHaiDaThuc(DATHUC dt1 ,DATHUC dt2){
+	if(dt1.n > dt2.n){
+		for(int i=0;i<=dt1.n;i++){
+			dt1.a[i]=dt1.a[i]+dt2.a[i];
+		}
+		return dt1;
+	}else{
+		for(int i=0;i<=dt2.n;i++){
+			dt2.a[i]=dt1.a[i]+dt2.a[i];
+		}
+		return dt2;
+	}
+}
+
+DATHUC tinhHieuHaiDaThuc(DATHUC dt1,DATHUC dt2){
+	if(dt1.n>=dt2.n){
+		for(int i=0;i<=dt1.n;i++){
+			dt1.a[i]=dt1.a[i]-dt2.a[i];
+		}
+		return dt1;
+	}else{
+		for(int i=0;i<=dt2.n;i++){
+			dt2.a[i]=dt1.a[i]-dt2.a[i];
+		}
+		return dt2;
+	}
+}
+	
+DATHUC tinhTichHaiDaThuc(DATHUC dt1,DATHUC dt2 ){
+		DATHUC dt;
+			dt.n=dt1.n+dt2.n;
+			for(int i=0;i<=dt1.n;i++){
+				for(int j=0;j<=dt2.n;j++){
+					dt.a[i+j]+=(dt1.a[i]*dt2.a[j]);
+				}
+			}
+			return dt;
+}
+
+DATHUC tinhDaoHamCapMot(DATHUC dt){
+	DATHUC dt1;
+	for(int i=dt.n;i>0;i--){
+		dt1.a[i-1]=dt.a[i]*i;
+	}
+	dt1.n=dt.n-1;
+	return dt1;
+}
+
+DATHUC tinhDaoHamKCap(DATHUC dt){
+	int k;
+	printf("\nnhap cap ma ban muon dao ham ");
+	scanf("%d",&k);
+	while(k!=0){
+		for(int i=0;i<=dt.n;i++){
+			dt.a[i]=dt.a[i+1]*(i+1);
+		}
+		dt.n=dt.n-1;
+		k=k-1;
+	}
+	return dt;
+}
+
+DATHUC tinhGiaTriDaThuc(DATHUC dt){
+	float x;
+	printf("nhap x0 = ");
+	scanf("%f",&x);
+	for(int i=1;i<=dt.n;i++){
+		dt.a[i]=dt.a[i]*pow(x,i);
+	}
+	return dt;
+}
+
+DATHUC operator+(DATHUC dt1,DATHUC dt2){
+	if(dt1.n <dt2.n){
+		dt1.n=dt2.n;
+	}
+	for(int i=0;i<=dt1.n;i++){
+		dt1.a[i]=dt1.a[i]+dt2.a[i];
+	}
+	return dt1;
+}
+
+DATHUC operator- (DATHUC dt1,DATHUC dt2){
+	if(dt1.n>=dt2.n){
+		for(int i=0;i<=dt1.n;i++){
+			dt1.a[i]=dt1.a[i]-dt2.a[i];
+		}
+		return dt1;
+	}else{
+		for(int i=0;i<=dt2.n;i++){
+			dt2.a[i]=dt1.a[i]-dt2.a[i];
+		}
+		return dt2;
+	}
+}
+
+DATHUC operator *(DATHUC dt1,DATHUC dt2){
+	DATHUC dt;
+	dt.n=dt1.n+dt2.n;
+	for(int i=0;i<=dt1.n;i++){
+		for(int j=0;j<=dt2.n;i++){
+			dt.a[i+j]+=(dt1.a[i]*dt2.a[j]);
+		}
+		return dt;
+	}
+}
+
+int main(){
+	DATHUC a,b;
+	nhap(a);
+	printf("da thuc a : \n");
+	xuat(a);
+	nhap(b);
+	printf("da thuc b : \n");
+	xuat(b);
+	
+//	printf("\n");
+//	printf("\nTong hai da thuc a + b  = ");
+//	xuat(tinhTongHaiDaThuc(a,b));
+//	
+//	printf("\nHieu hai da thuc a - b  = ");
+//	xuat(tinhHieuHaiDaThuc(a,b));
+//	
+	DATHUC KQ=tinhTichHaiDaThuc(a,b);
+	printf("\nTich hai da thuc a * b = ");
+	xuat(KQ);
+	
+//	printf("\nDao Ham Cap 1 cua  a : ");
+//	xuat(tinhDaoHamCapMot(a));
+//	
+//	printf("\nDao Ham cap K cua a : ");
+//	xuat(tinhDaoHamKCap(a));
+//	
+//	printf("\nGia tri cua da thuc a : ");
+//	xuat(tinhGiaTriDaThuc(a));
+	
+//	printf("\nket qua cua tong hai da thuc a+ b :" );
+//	xuat(a+b);
+//	
+//	printf("\nket qua cua hieu hai da thuc a - b :");
+//	xuat(a-b);
+	
+//	DATHUC c=a*b;
+//	printf("\nket qua cua tich hai da thuc a* b : ");
+//	xuat(c);
+return 0;
+	getch();
+}
