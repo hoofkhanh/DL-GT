@@ -1,0 +1,278 @@
+#include<stdio.h>
+
+	struct phanSo{
+		float tuSo,mauSo;
+	};
+	
+	typedef struct phanSo PHANSO;
+
+void nhapPhanSo(PHANSO &);
+void xuatPhanSo(PHANSO &);
+void xuatphanSo(PHANSO );
+PHANSO rutGonPhanSo(PHANSO );
+PHANSO tinhTongHaiPhanSo(PHANSO ,PHANSO);	
+PHANSO tinhHieuHaiPhanSo(PHANSO ,PHANSO);
+PHANSO tinhTichHaiPhanSo(PHANSO ,PHANSO);
+PHANSO tinhThuongHaiPhanSo(PHANSO ,PHANSO);
+bool kiemTraPhanSoToiGian(PHANSO );
+void quiDongPhanSo(PHANSO &,PHANSO &);
+bool kiemTraPhanSoDuong(PHANSO);
+int soSanhHaiPhanSo(PHANSO , PHANSO);
+PHANSO operator +(PHANSO,PHANSO);
+PHANSO operator -(PHANSO,PHANSO);
+PHANSO operator *(PHANSO,PHANSO);
+PHANSO operator /(PHANSO,PHANSO);
+PHANSO operator ++(PHANSO &);
+
+
+void nhapPhanSo(PHANSO &ps){
+	printf("\nnhap vao tu so : ");
+	scanf("%f",&ps.tuSo);
+	do{
+		printf("nhap vao mau so khac 0 : ");
+		scanf("%f",&ps.mauSo);
+	}while(ps.mauSo==0);
+}
+
+void xuatPhanSo(PHANSO &ps){
+	if(ps.mauSo <0 && ps.tuSo <0){
+		ps.mauSo=ps.mauSo*-1;
+		ps.tuSo=ps.tuSo*-1;
+		printf("phan so vua nhap : %.2f/%.2f",ps.tuSo,ps.mauSo);
+	}else
+	printf("phan so vua nhap : %.2f/%.2f",ps.tuSo,ps.mauSo);
+}
+
+void xuatphanSo(PHANSO ps){
+	if(ps.mauSo <0 && ps.tuSo <0){
+		ps.mauSo=ps.mauSo*-1;
+		ps.tuSo=ps.tuSo*-1;
+		printf("phan so vua nhap : %.2f/%.2f",ps.tuSo,ps.mauSo);
+	}else
+	printf("phan so vua nhap : %.2f/%.2f",ps.tuSo,ps.mauSo);
+}
+
+
+
+float timUocChungLonNhat(float a,float b){
+	int soChia=1;
+	while(a-(int)a !=0 || b-(int)b  !=0 ){
+		a*=10;
+		b*=10;
+		soChia*=10;
+	}
+	
+	if(a<0){
+		a=a*-1;
+	}
+	
+	if(b<0){
+		b=b*-1;
+	}
+	
+	if(a==0 || b==0){
+		return a+b;
+	}else {
+		while(a!=b){
+			if(a>b){
+				a=a-b;
+			}else{
+				b=b-a;
+			}
+		}
+	}
+	return a;
+}
+
+PHANSO rutGonPhanSo(PHANSO ps){
+	PHANSO ps1;
+	float ucln =timUocChungLonNhat(ps.tuSo,ps.mauSo);
+	ps1.tuSo=ps.tuSo/ucln;
+	ps1.mauSo=ps.mauSo/ucln;
+	return ps1;
+}
+
+PHANSO tinhTongHaiPhanSo(PHANSO ps1,PHANSO ps2){
+	PHANSO ps3;
+	ps3.tuSo=(ps1.tuSo*ps2.mauSo)+(ps2.tuSo*ps1.mauSo);
+	ps3.mauSo=ps1.mauSo*ps2.mauSo;
+	return ps3;
+}
+
+PHANSO tinhHieuHaiPhanSo(PHANSO ps1,PHANSO ps2){
+	PHANSO ps3;
+	ps3.tuSo=(ps1.tuSo*ps2.mauSo)-(ps2.tuSo*ps1.mauSo);
+	ps3.mauSo=ps1.mauSo*ps2.mauSo;
+	return ps3;
+}
+
+PHANSO tinhTichHaiPhanSo(PHANSO ps1,PHANSO ps2){
+	ps1.tuSo=ps1.tuSo*ps2.tuSo;
+	ps1.mauSo=ps1.mauSo*ps2.mauSo;
+	return ps1;
+}
+
+PHANSO tinhThuongHaiPhanSo(PHANSO ps1,PHANSO ps2){
+	PHANSO ps3;
+	ps3.tuSo=ps1.tuSo*ps2.mauSo;
+	ps3.mauSo=ps1.mauSo*ps2.tuSo;
+	return ps3;
+}
+
+bool kiemTraPhanSoToiGian(PHANSO ps){
+	float ucln=timUocChungLonNhat(ps.tuSo,ps.mauSo);
+	if(ps.tuSo -ps.tuSo/ucln ==0 || ps.mauSo -ps.mauSo/ucln==0)
+		return true;
+	else
+		return false;
+}
+
+void quiDongPhanSo(PHANSO &ps1,PHANSO &ps2){
+	float mauSoPs1=ps1.mauSo;
+	float mauSoPs2=ps2.mauSo;
+	
+	ps1.tuSo=ps1.tuSo*mauSoPs2;
+	ps1.mauSo=ps1.mauSo*mauSoPs2;
+	
+	ps2.tuSo=ps2.tuSo*mauSoPs1;
+	ps2.mauSo=ps2.mauSo*mauSoPs1;
+}
+
+bool kiemTraPhanSoDuong(PHANSO ps){
+	if(ps.tuSo/ps.mauSo >0)
+		return true;
+	else
+		return false;
+}
+
+bool kiemTraPhanSoAm(PHANSO ps){
+	if(ps.tuSo/ps.mauSo <0)
+		return true;
+	else
+		return false;
+}
+
+int soSanhHaiPhanSo(PHANSO ps1,PHANSO ps2){
+	float ketQua1=ps1.tuSo/ps1.mauSo;
+	float ketQua2=ps2.tuSo/ps2.mauSo;
+	
+	if(ketQua1 > ketQua2)
+		return 1;
+	else if(ketQua1 == ketQua2)
+		return 0;
+	else
+		return -1;
+}
+
+PHANSO operator+(PHANSO ps1,PHANSO ps2){
+	PHANSO ps3;
+	ps3.tuSo=(ps1.tuSo*ps2.mauSo)+(ps2.tuSo*ps1.mauSo);
+	ps3.mauSo=ps1.mauSo*ps2.mauSo;
+	return ps3;
+}
+
+PHANSO operator-(PHANSO ps1,PHANSO ps2){
+	PHANSO ps3;
+	ps3.tuSo=(ps1.tuSo*ps2.mauSo)-(ps2.tuSo*ps1.mauSo);
+	ps3.mauSo=ps1.mauSo*ps2.mauSo;
+	return ps3;
+}
+
+PHANSO operator*(PHANSO ps1,PHANSO ps2){
+	ps1.tuSo=ps1.tuSo*ps2.tuSo;
+	ps1.mauSo=ps1.mauSo*ps2.mauSo;
+	return ps1;
+}
+
+PHANSO operator/(PHANSO ps1,PHANSO ps2){
+	PHANSO ps3;
+	ps3.tuSo=ps1.tuSo*ps2.mauSo;
+	ps3.mauSo=ps1.mauSo*ps2.tuSo;
+	return ps3;
+}
+
+PHANSO operator ++(PHANSO &ps){
+	ps.tuSo+=ps.mauSo;
+	return ps;
+}
+
+int main(){
+	PHANSO ps1;
+	printf("start with ps1 ");
+	nhapPhanSo(ps1);
+	xuatPhanSo(ps1);
+	PHANSO ps2;
+	printf("\nstart with ps2");
+	nhapPhanSo(ps2);
+	xuatPhanSo(ps2);
+	
+	PHANSO ps3=rutGonPhanSo(ps1);
+	printf("\nrut gon ps1 : ");
+	xuatPhanSo(ps3);
+	
+	PHANSO ps4=tinhTongHaiPhanSo(ps1,ps2);
+	ps4=rutGonPhanSo(ps4);
+	printf("\ntinh tong hai phan so ps1 + ps2 : ");
+	xuatPhanSo(ps4);
+	
+	PHANSO ps5=tinhHieuHaiPhanSo(ps1,ps2);
+	ps5=rutGonPhanSo(ps5);
+	printf("\ntinh hieu hai phan so ps1 - ps2 : ");
+	xuatPhanSo(ps5);
+	
+	PHANSO ps6=tinhTichHaiPhanSo(ps1,ps2);
+	ps6=rutGonPhanSo(ps6);
+	printf("\ntinh tich hai phan so ps1 * ps2 : ");
+	xuatPhanSo(ps6);
+	
+	PHANSO ps7=tinhThuongHaiPhanSo(ps1,ps2);
+	ps7=rutGonPhanSo(ps7);
+	printf("\ntinh thuong hai phan so ps1 / ps2 : ");
+	xuatPhanSo(ps7);
+
+	printf("\nkiem tra ps1 co toi gian hay khong ");
+	bool ps8=kiemTraPhanSoToiGian(ps1);
+	if(ps8==1)
+		printf(":\tps1 = %.2f/%.2f da toi gian",ps1.tuSo,ps1.mauSo);
+	else
+		printf(":\tps1 = %.2f/%.2f chua toi gian",ps1.tuSo,ps1.mauSo);
+
+	quiDongPhanSo(ps1,ps2);
+	printf("\n hai phan so sau khi quy dong ");
+	printf("\nps1 = %.2f/%.2f",ps1.tuSo,ps1.mauSo);
+	printf("\nps2 = %.2f/%.2f",ps2.tuSo,ps2.mauSo);
+	
+	printf("\nkiem tra ps1 co duong hay khong");
+	if(kiemTraPhanSoDuong(ps1)==true)
+		printf(":\tps1 = %.2f/%.2f la so duong",ps1.tuSo,ps1.mauSo);
+	else
+		printf(":\tps1 = %.2f/%.2f khong phai la so duong",ps1.tuSo,ps1.mauSo);
+
+	printf("\nkiem tra ps1 co am hay khong");
+	if(kiemTraPhanSoAm(ps1)==true)
+		printf(":\tps1 = %.2f/%.2f la so am",ps1.tuSo,ps1.mauSo);
+	else
+		printf(":\tps1 = %.2f/%.2f khong phai la so am",ps1.tuSo,ps1.mauSo);
+
+	if(soSanhHaiPhanSo(ps1,ps2)==1)
+		printf("\nps1 = %.2f/%.2f  > ps2 = %.2f/%.2f",ps1.tuSo,ps1.mauSo,ps2.tuSo,ps2.mauSo);
+	else if(soSanhHaiPhanSo(ps1,ps2)==0)
+		printf("\nps1 = %.2f/%.2f  = ps2 = %.2f/%.2f",ps1.tuSo,ps1.mauSo,ps2.tuSo,ps2.mauSo);
+	else
+		printf("\nps1 = %.2f/%.2f  < ps2 = %.2f/%.2f",ps1.tuSo,ps1.mauSo,ps2.tuSo,ps2.mauSo);
+
+	printf("\n Tinh tong ps1 + ps2");
+	xuatphanSo(ps1+ps2);
+	
+	printf("\n Tinh hieu ps1 + ps2");
+	xuatphanSo(ps1-ps2);
+	
+	printf("\n Tinh tich ps1 + ps2");
+	xuatphanSo(ps1*ps2);
+	
+	printf("\n Tinh thuong ps1 + ps2");
+	xuatphanSo(ps1/ps2);
+	
+	printf("\ntoan tu ++ ps1");
+	xuatphanSo(++ps1);
+}
