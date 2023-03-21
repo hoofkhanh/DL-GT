@@ -23,6 +23,7 @@ PHANSO operator -(PHANSO,PHANSO);
 PHANSO operator *(PHANSO,PHANSO);
 PHANSO operator /(PHANSO,PHANSO);
 PHANSO operator ++(PHANSO &);
+PHANSO operator --(PHANSO &);
 
 
 void nhapPhanSo(PHANSO &ps){
@@ -196,6 +197,11 @@ PHANSO operator ++(PHANSO &ps){
 	return ps;
 }
 
+PHANSO operator ++(PHANSO &ps){
+	ps.tuSo-=ps.mauSo;
+	return ps;
+}
+
 int main(){
 	PHANSO ps1;
 	printf("start with ps1 ");
@@ -274,5 +280,8 @@ int main(){
 	xuatphanSo(ps1/ps2);
 	
 	printf("\ntoan tu ++ ps1");
+	xuatphanSo(++ps1);
+	
+	printf("\ntoan tu -- ps1");
 	xuatphanSo(++ps1);
 }
